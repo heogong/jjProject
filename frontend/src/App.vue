@@ -1,13 +1,38 @@
 <template>
   <div id="app">
-    <img src="./assets/logo.png">
-    <router-view/>
+    <v-app id="inspire" dark>
+      <v-navigation-drawer clipped fixed v-model="drawer" app>
+        <!-- 리스트 -->
+        <Menu></Menu>
+      </v-navigation-drawer>
+
+      <!-- header -->
+      <Header></Header>
+
+      <!-- 컨텐츠 -->
+      <v-content>
+        <router-view></router-view>
+      </v-content>
+
+      <!-- footer -->
+      <v-footer app fixed>
+        <span>&copy; 2017</span>
+      </v-footer>
+
+    </v-app>
   </div>
 </template>
 
 <script>
+import Header from '@/components/Header'
+import Menu from '@/components/Menu'
+
 export default {
-  name: 'App'
+  name: 'App',
+  components: {
+    Header,
+    Menu
+  }
 }
 </script>
 

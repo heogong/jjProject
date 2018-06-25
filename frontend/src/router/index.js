@@ -9,12 +9,12 @@ export default new Router({
   //mode: 'history',
   routes: [
     {
-      path: '/hello',
+      path: '/',
       name: 'HelloWorld',
       component: HelloWorld
     },
     {
-      path: '/testAxios',
+      path: '/axios',
       name: 'TestAxios',
       component: TestAxios
     }
