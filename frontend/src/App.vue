@@ -7,7 +7,7 @@
       </v-navigation-drawer>
 
       <!-- header -->
-      <Header></Header>
+      <Header v-on:menu-toggle="menuToggle"></Header>
 
       <!-- 컨텐츠 -->
       <v-content>
@@ -32,6 +32,14 @@ export default {
   components: {
     Header,
     Menu
+  },
+  data: () => ({
+    drawer: true
+  }),
+  methods: {
+    menuToggle: function(toggle){
+      this.drawer = toggle;
+    }
   }
 }
 </script>
