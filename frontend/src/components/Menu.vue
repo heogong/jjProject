@@ -1,32 +1,112 @@
 <template>
-  <v-list dense>
-    <v-list-tile @click="alert('click');">
+  <v-list>
+    
+    <!-- 2레벨 이상 메뉴 -->
+    <v-list-group
+      v-for="item in items" 
+      v-model="item.active" 
+      :key="item.title" 
+      :prepend-icon="item.action"
+      no-action>
+      
+      <!-- 1 레벨 메뉴 -->
+      <v-list-tile slot="activator" :to="item.toUrl">
+        <v-list-tile-content>
+          <v-list-tile-title>{{ item.title }}</v-list-tile-title>
+        </v-list-tile-content>
+      </v-list-tile>
+
+      <!--2 레벨 메뉴 -->
+      <v-list-tile v-for="subItem in item.items" :key="subItem.title" :to="subItem.toUrl">
+        <v-list-tile-content>
+          <v-list-tile-title>{{ subItem.title }}</v-list-tile-title>
+        </v-list-tile-content>
+        <v-list-tile-action>
+          <v-icon>{{ subItem.action }}</v-icon>
+        </v-list-tile-action>
+      </v-list-tile>
+
+    </v-list-group>
+
+    <!-- 1레벨 메뉴 -->
+    <v-list-tile to="/">
       <v-list-tile-action>
         <v-icon>dashboard</v-icon>
       </v-list-tile-action>
       <v-list-tile-content>
-        <v-list-tile-title>Dashboard</v-list-tile-title>
+        <v-list-tile-title>1 LEVEL MENU</v-list-tile-title>
       </v-list-tile-content>
     </v-list-tile>
 
-    <v-list-tile @click="alert('click');">
-      <v-list-tile-action>
-        <v-icon>settings</v-icon>
-      </v-list-tile-action>
-      <v-list-tile-content>
-        <v-list-tile-title>Settings</v-list-tile-title>
-      </v-list-tile-content>
-    </v-list-tile>
   </v-list>
 </template>
 
 <script>
 export default {
-  name: 'Menu'
+  name: 'Menu',
+  data: function() {
+    return{
+       items: [
+        {
+          action: 'local_activity',
+          title: 'Attractions',
+          active: true,
+          items: [
+            { 
+              title: 'List Item',
+              toUrl: '/'
+            }
+          ]
+        },
+        {
+          action: 'restaurant',
+          title: 'Dining',
+          items: [
+            { 
+              title: 'Breakfast & brunch',
+              toUrl: '/axios' 
+            },
+            { title: 'New American' },
+            { title: 'Sushi' }
+          ]
+        },
+        {
+          action: 'school',
+          title: 'Education',
+          items: [
+            { title: 'List Item' }
+          ]
+        },
+        {
+          action: 'directions_run',
+          title: 'Family',
+          items: [
+            { title: 'List Item' }
+          ]
+        },
+        {
+          action: 'healing',
+          title: 'Health',
+          items: [
+            { title: 'List Item' }
+          ]
+        },
+        {
+          action: 'content_cut',
+          title: 'Office',
+          items: [
+            { title: 'List Item' }
+          ]
+        }
+      ]
+    }
+  }
 }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-
+.abc{
+  color: red;
+}
 </style>
