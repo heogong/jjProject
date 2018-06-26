@@ -16,19 +16,21 @@
         </v-list-tile-content>
       </v-list-tile>
 
-      <!--2 레벨 메뉴 -->
+      <!--2 레벨 메뉴 (비슷한거 제거)-->
       <v-list-tile v-for="subItem in item.items" :key="subItem.title" :to="subItem.toUrl">
-        <v-list-tile-content>
-          <v-list-tile-title>{{ subItem.title }}</v-list-tile-title>
-        </v-list-tile-content>
         <v-list-tile-action>
           <v-icon>{{ subItem.action }}</v-icon>
         </v-list-tile-action>
+        <v-list-tile-content>
+          <v-list-tile-title>{{ subItem.title }}</v-list-tile-title>
+        </v-list-tile-content>
       </v-list-tile>
 
     </v-list-group>
 
-    <!-- 1레벨 메뉴 -->
+    <!-- 1레벨 메뉴 (비슷한거 제거)-->
+    <SubMenu></SubMenu>
+
     <v-list-tile to="/">
       <v-list-tile-action>
         <v-icon>dashboard</v-icon>
@@ -42,8 +44,13 @@
 </template>
 
 <script>
+import SubMenu from './SubMenu'
+
 export default {
   name: 'Menu',
+  components : {
+    SubMenu
+  },
   data: function() {
     return{
        items: [

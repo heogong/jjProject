@@ -25,7 +25,7 @@
 
 <script>
 import Header from '@/components/Header'
-import Menu from '@/components/Menu'
+import Menu from '@/components/MENU/Menu'
 
 export default {
   name: 'App',
