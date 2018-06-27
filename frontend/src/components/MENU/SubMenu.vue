@@ -1,5 +1,5 @@
 <template>
-  <v-list-tile slot="activator" :to="toUrl">
+  <v-list-tile slot="activator activator" :to="toUrl">
     <v-list-tile-action>
       <v-icon>{{ action }}</v-icon>
     </v-list-tile-action>

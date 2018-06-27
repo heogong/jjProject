@@ -1,38 +1,25 @@
-<template>
-  <v-list>
+<template v-for="item in items">
+  <v-list-group v-model="item.active" no-action>
     
-    <!-- 2레벨 이상 메뉴 -->
-    <v-list-group
-      v-for="item in items" 
-      v-model="item.active" 
-      :key="item.title" 
-      no-action>
-      
-      <!-- 1 레벨 메뉴 (비슷한거 제거) -->
-      <!-- <v-list-tile slot="activator" :to="item.toUrl">
-        <v-list-tile-action>
-          <v-icon>{{ item.action }}</v-icon>
-        </v-list-tile-action>
-        <v-list-tile-content>
-          <v-list-tile-title>{{ item.title }}</v-list-tile-title>
-        </v-list-tile-content>
-      </v-list-tile> -->
+    <!-- 1 레벨 메뉴 (비슷한거 제거) -->
+    <v-list-tile slot="activator" :to="item.toUrl" >
+      <v-list-tile-action>
+        <v-icon>{{ item.action }}</v-icon>
+      </v-list-tile-action>
+      <v-list-tile-content>
+        <v-list-tile-title>{{ item.title }}</v-list-tile-title>
+      </v-list-tile-content>
+    </v-list-tile>
+    
+    <!-- <SubMenu v-bind:propsdata="item"></SubMenu> -->
 
-      <SubMenu v-bind:propsdata="item"></SubMenu>
-
-      <!--2 레벨 메뉴 -->
-      <v-list-tile v-for="subItem in item.items" :key="subItem.title" :to="subItem.toUrl">
-        <v-list-tile-content>
-          <v-list-tile-title>{{ subItem.title }}</v-list-tile-title>
-        </v-list-tile-content>
-      </v-list-tile>
-
-    </v-list-group>
-
-    <!-- 1레벨 메뉴 (비슷한거 제거)-->
-    <!-- <SubMenu></SubMenu> -->
-
-  </v-list>
+    <!--2 레벨 메뉴 -->
+    <v-list-tile v-for="subItem in item.items" :key="subItem.title" :to="subItem.toUrl">
+      <v-list-tile-content>
+        <v-list-tile-title>{{ subItem.title }}</v-list-tile-title>
+      </v-list-tile-content>
+    </v-list-tile>
+  </v-list-group>
 </template>
 
 <script>
@@ -43,8 +30,7 @@ export default {
   components : {
     SubMenu
   },
-  data: function() {
-    return{
+  data: () => ({
        items: [
         {
           action: 'local_activity',
@@ -99,7 +85,7 @@ export default {
         }
       ]
     }
-  }
+  )
 }
 </script>
 

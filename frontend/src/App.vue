@@ -3,7 +3,9 @@
     <v-app id="inspire" dark>
       <v-navigation-drawer clipped fixed v-model="drawer" app>
         <!-- 리스트 -->
-        <Menu></Menu>
+        <v-list>
+          <Menu></Menu>
+        </v-list>
       </v-navigation-drawer>
 
       <!-- header -->
