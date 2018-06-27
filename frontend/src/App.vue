@@ -3,9 +3,7 @@
     <v-app id="inspire" dark>
       <v-navigation-drawer clipped fixed v-model="drawer" app>
         <!-- 리스트 -->
-        <v-list>
-          <Menu></Menu>
-        </v-list>
+        <Menu></Menu>
       </v-navigation-drawer>
 
       <!-- header -->
@@ -27,7 +25,7 @@
 
 <script>
 import Header from '@/components/Header'
-import Menu from '@/components/MENU/Menu'
+import Menu from '@/components/Menu'
 
 export default {
   name: 'App',
@@ -46,13 +44,11 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
 }
 </style>
