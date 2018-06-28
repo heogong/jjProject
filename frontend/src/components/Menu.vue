@@ -8,7 +8,7 @@
         :prepend-icon="item.action" 
         no-action
       >
-        <v-list-tile slot="activator" :to="item.toUrl" >
+        <v-list-tile slot="activator" :to="item.toUrl">
           <v-list-tile-content>
             <v-list-tile-title>{{ item.title }}</v-list-tile-title>
           </v-list-tile-content>
@@ -85,13 +85,15 @@ export default {
         toUrl: '/4'
       }
     ]
-  })
+  }),
+  mounted: function () {
+    alert(this.$route.path);
+    //this.items[0].active = true
+  }
 }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-.abc{
-  color: red;
-}
+
 </style>
