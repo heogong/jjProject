@@ -7,6 +7,7 @@
         :key="item.title"
         :prepend-icon="item.action" 
         no-action
+        active-class="white--text"
       >
         <v-list-tile slot="activator" :to="item.toUrl">
           <v-list-tile-content>
@@ -14,14 +15,14 @@
           </v-list-tile-content>
         </v-list-tile>
         
-        <v-list-tile v-for="subItem in item.items" :key="subItem.title" :to="subItem.toUrl">
+        <v-list-tile v-for="subItem in item.items" :key="subItem.title" :to="subItem.toUrl" active-class="grey darken-1">
           <v-list-tile-content>
             <v-list-tile-title>{{ subItem.title }}</v-list-tile-title>
           </v-list-tile-content>
         </v-list-tile>
       </v-list-group>
 
-      <v-list-tile v-else :to="item.toUrl" :key="item.title">
+      <v-list-tile v-else :to="item.toUrl" :key="item.title" active-class="grey darken-1">
         <v-list-tile-action>
             <v-icon>{{ item.action }}</v-icon>
           </v-list-tile-action>
@@ -39,12 +40,12 @@ export default {
   data: () => ({
     items: [
       {
-        action: 'local_activity',
-        title: 'Attractions',
+        action: 'person',
+        title: '선생님',
         items: [
           { 
             title: 'List Item',
-            toUrl: '/1'
+            toUrl: '/TEACHER/Master'
           }
         ]
       },
@@ -86,9 +87,15 @@ export default {
       }
     ]
   }),
-  mounted: function () {
-    alert(this.$route.path);
-    //this.items[0].active = true
+  created: function () {
+    for(var i = 0; i < this.items.length; i++) {
+      if(typeof this.items[i].items != 'undefined')
+        for(var j = 0 ; j < this.items[i].items.length; j++) {
+         if(this.items[i].items[j].toUrl == this.$route.path) {
+           this.items[i].active = true;  
+         }
+      }
+    }
   }
 }
 </script>
