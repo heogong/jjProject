@@ -1,37 +1,38 @@
 <template>
     <div>
-        <v-btn slot="activator" color="grey darken-2" dark class="mb-2 fr" @click.stop="dialog=true">등록</v-btn>
-        <v-data-table
-            :headers="headers"
-            :items="desserts"
-            :search="search"
-            :pagination.sync="pagination"
-            hide-actions
-            class="elevation-1"
-        >
-            <template slot="headerCell" slot-scope="props">
-            <v-tooltip bottom>
-                <span slot="activator">
-                {{ props.header.text }}
-                </span>
-                <span>
-                {{ props.header.text }}
-                </span>
-            </v-tooltip>
-            </template>
-            <template slot="items" slot-scope="props">
-            <td>{{ props.item.name }}</td>
-            <td class="text-xs-right">{{ props.item.calories }}</td>
-            <td class="text-xs-right">{{ props.item.fat }}</td>
-            <td class="text-xs-right">{{ props.item.carbs }}</td>
-            <td class="text-xs-right">{{ props.item.protein }}</td>
-            <td class="text-xs-right">{{ props.item.iron }}</td>
-            </template>
-        </v-data-table>
+      <v-btn slot="activator" color="grey darken-2" dark round class="mb-2 fr" 
+        v-on:click="dialog=!dialog">등록</v-btn>
+      <v-data-table
+          :headers="headers"
+          :items="desserts"
+          :search="search"
+          :pagination.sync="pagination"
+          hide-actions
+          class="elevation-1"
+      >
+        <template slot="headerCell" slot-scope="props">
+          <v-tooltip bottom>
+              <span slot="activator">
+              {{ props.header.text }}
+              </span>
+              <span>
+              {{ props.header.text }}
+              </span>
+          </v-tooltip>
+        </template>
+        <template slot="items" slot-scope="props">
+          <td>{{ props.item.name }}</td>
+          <td class="text-xs-right">{{ props.item.calories }}</td>
+          <td class="text-xs-right">{{ props.item.fat }}</td>
+          <td class="text-xs-right">{{ props.item.carbs }}</td>
+          <td class="text-xs-right">{{ props.item.protein }}</td>
+          <td class="text-xs-right">{{ props.item.iron }}</td>
+        </template>
+      </v-data-table>
       <div class="text-xs-center pt-2">
         <v-pagination v-model="pagination.page" :length="pages" :circle=true></v-pagination>
       </div>
-      <TeacherWrite v-bind:propsdata="dialog"></TeacherWrite>
+      <TeacherWrite v-bind:parentData="dialog"></TeacherWrite>
     </div>
 </template>
 
@@ -155,9 +156,6 @@ export default {
         }
       ]
     }
-  },
-  updated : function() {
-    alert(this.dialog);
   },
   computed: {
     pages () {
