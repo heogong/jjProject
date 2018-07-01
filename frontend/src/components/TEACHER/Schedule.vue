@@ -1,5 +1,5 @@
 <template>
-  <h1>스케쥴</h1>
+  <h1>스케쥴!!!!!</h1>
 </template>
 
 <script>
