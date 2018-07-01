@@ -41,11 +41,11 @@ export default {
     items: [
       {
         action: 'person',
-        title: '선생님',
+        title: '선생님1111',
         items: [
           { 
             title: 'List Item',
-            toUrl: '/TEACHER/Master'
+            toUrl: '/TEACHER'
           }
         ]
       },
