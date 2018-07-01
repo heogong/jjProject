@@ -5,7 +5,11 @@
 <script>
 
 export default {
-  name: 'Teacher_Schedule'
+  name: 'Teacher_Schedule',
+  props : ['parentData'],
+  created : function() {
+    console.log(this.parentData,'sch-Userid');
+  }
 }
 </script>
 

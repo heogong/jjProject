@@ -1,39 +1,54 @@
 <template>
-    <div>
-      <v-btn slot="activator" color="grey darken-2" dark round class="mb-2 fr" 
-        v-on:click="dialog=!dialog">등록</v-btn>
-      <v-data-table
-          :headers="headers"
-          :items="desserts"
-          :search="search"
-          :pagination.sync="pagination"
-          hide-actions
-          class="elevation-1"
-      >
-        <template slot="headerCell" slot-scope="props">
-          <v-tooltip bottom>
-              <span slot="activator">
-              {{ props.header.text }}
-              </span>
-              <span>
-              {{ props.header.text }}
-              </span>
-          </v-tooltip>
-        </template>
-        <template slot="items" slot-scope="props">
-          <td>{{ props.item.name }}</td>
-          <td class="text-xs-right">{{ props.item.calories }}</td>
-          <td class="text-xs-right">{{ props.item.fat }}</td>
-          <td class="text-xs-right">{{ props.item.carbs }}</td>
-          <td class="text-xs-right">{{ props.item.protein }}</td>
-          <td class="text-xs-right">{{ props.item.iron }}</td>
-        </template>
-      </v-data-table>
-      <div class="text-xs-center pt-2">
-        <v-pagination v-model="pagination.page" :length="pages" :circle=true></v-pagination>
-      </div>
-      <TeacherWrite v-bind:parentData="dialog"></TeacherWrite>
-    </div>
+  <v-container grid-list-md text-xs-center>
+    <v-layout row wrap>
+      <v-flex xs12>
+        <h1 class="text-sm-left"><v-icon large>list</v-icon> aaaaaaaaa</h1>
+        <v-divider></v-divider>
+
+        <v-btn slot="activator" color="grey darken-2" dark round class="mb-2" 
+          v-on:click="dialog=!dialog">팝업 등록</v-btn>
+        <v-btn slot="activator" color="grey darken-2" dark round class="mb-2" 
+          to="/TEACHER/write">등록</v-btn>
+
+        <v-data-table
+            :headers="headers"
+            :items="desserts"
+            :search="search"
+            :pagination.sync="pagination"
+            hide-actions
+            class="elevation-1"
+        >
+          <template slot="headerCell" slot-scope="props">
+            <v-tooltip bottom>
+                <span slot="activator">
+                {{ props.header.text }}
+                </span>
+                <span>
+                {{ props.header.text }}
+                </span>
+            </v-tooltip>
+          </template>
+          <template slot="items" slot-scope="props">
+            <td>{{ props.item.name }}</td>
+            <td class="text-xs-center">{{ props.item.calories }}</td>
+            <td class="text-xs-center">{{ props.item.fat }}</td>
+            <td class="text-xs-center">{{ props.item.carbs }}</td>
+            <td class="text-xs-center">{{ props.item.protein }}</td>
+            <td class="text-xs-center">{{ props.item.iron }}</td>
+            <td class="text-xs-center">
+              <router-link :to="{ name: 'TeacherInfo', params: { userId: 123 }}">
+                <v-icon color="white">search</v-icon>
+              </router-link>
+            </td>
+          </template>
+        </v-data-table>
+        <div class="text-xs-center pt-2">
+          <v-pagination v-model="pagination.page" :length="pages" :circle=true></v-pagination>
+        </div>
+        <!-- <TeacherWrite v-bind:parentData="dialog"></TeacherWrite> -->
+      </v-flex>
+    </v-layout>
+  </v-container>
 </template>
 
 <script>
@@ -46,22 +61,18 @@ export default {
   },
   data () {
     return {
-        dialog : false,        
-        search: '',
-        pagination: {},
-        selected: [],
-        headers: [
-        {
-          text: 'Dessert (100g serving)',
-          align: 'left',
-          sortable: false,
-          value: 'name'
-        },
-        { text: 'Calories', value: 'calories' },
-        { text: 'Fat (g)', value: 'fat' },
-        { text: 'Carbs (g)', value: 'carbs' },
-        { text: 'Protein (g)', value: 'protein' },
-        { text: 'Iron (%)', value: 'iron' }
+      dialog : false,        
+      search: '',
+      pagination: {},
+      selected: [],
+      headers: [
+        { text: 'Dessert (100g serving)', value: 'name', align: 'center', sortable: true},
+        { text: 'Calories', value: 'calories', align: 'center', sortable: false},
+        { text: 'Fat (g)', value: 'fat', align: 'center', sortable: false },
+        { text: 'Carbs (g)', value: 'carbs', align: 'center', sortable: false },
+        { text: 'Protein (g)', value: 'protein', align: 'center', sortable: false },
+        { text: 'Iron (%)', value: 'iron', align: 'center', sortable: false },
+        { text: 'view', value: 'view', align: 'center', sortable: false }
       ],
       desserts: [
         {
@@ -176,5 +187,8 @@ export default {
 }
 .fr {
     float : right;
+}
+a {
+  text-decoration: none;
 }
 </style>

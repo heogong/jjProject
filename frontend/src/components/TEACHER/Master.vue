@@ -3,7 +3,6 @@
     <v-container grid-list-md text-xs-center>
       <v-layout row wrap>
         <v-flex xs12>
-          <TeacherTab></TeacherTab>  
         </v-flex>
       </v-layout>
     </v-container>
@@ -11,12 +10,10 @@
 </template>
 
 <script>
-import TeacherTab from '@/components/TEACHER/Tab'
 
 export default {
   name: 'Teacher_Master',
   components : {
-    TeacherTab
   }
 }
 </script>

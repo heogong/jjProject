@@ -1,125 +1,109 @@
 <template>
-  <v-dialog
-    v-model="dialog"
-    fullscreen
-    hide-overlay
-    transition="dialog-bottom-transition"
-    scrollable
-  >
-    <v-card tile>
-      <v-toolbar card dark color="primary">
-        <v-btn icon dark @click.native="dialog = false">
-          <v-icon>close</v-icon>
-        </v-btn>
-        <v-toolbar-title>Settings</v-toolbar-title>
-        <v-spacer></v-spacer>
-        <v-toolbar-items>
-          <v-btn dark flat @click.native="dialog = false">Save</v-btn>
-        </v-toolbar-items>
-        <v-menu bottom right offset-y>
-          <v-btn slot="activator" dark icon>
-            <v-icon>more_vert</v-icon>
-          </v-btn>
-          <v-list>
-            <v-list-tile v-for="(item, i) in items" :key="i">
-              <v-list-tile-title>{{ item.title }}</v-list-tile-title>
-            </v-list-tile>
-          </v-list>
-        </v-menu>
-      </v-toolbar>
-      <v-card-text>
-        <v-btn color="primary" dark @click.stop="dialog2 = !dialog2">Open Dialog 2</v-btn>
-        <v-tooltip right>
-          <v-btn slot="activator">Tool Tip Activator</v-btn>
-          Tool Tip
-        </v-tooltip>
-        <v-list three-line subheader>
-          <v-subheader>User Controls</v-subheader>
-          <v-list-tile avatar>
-            <v-list-tile-content>
-              <v-list-tile-title>Content filtering</v-list-tile-title>
-              <v-list-tile-sub-title>Set the content filtering level to restrict apps that can be downloaded</v-list-tile-sub-title>
-            </v-list-tile-content>
-          </v-list-tile>
-          <v-list-tile avatar>
-            <v-list-tile-content>
-              <v-list-tile-title>Password</v-list-tile-title>
-              <v-list-tile-sub-title>Require password for purchase or use password to restrict purchase</v-list-tile-sub-title>
-            </v-list-tile-content>
-          </v-list-tile>
-        </v-list>
-        <v-divider></v-divider>
-        <v-list three-line subheader>
-          <v-subheader>General</v-subheader>
-          <v-list-tile avatar>
-            <v-list-tile-action>
-              <v-checkbox v-model="notifications"></v-checkbox>
-            </v-list-tile-action>
-            <v-list-tile-content>
-              <v-list-tile-title>Notifications</v-list-tile-title>
-              <v-list-tile-sub-title>Notify me about updates to apps or games that I downloaded</v-list-tile-sub-title>
-            </v-list-tile-content>
-          </v-list-tile>
-          <v-list-tile avatar>
-            <v-list-tile-action>
-              <v-checkbox v-model="sound"></v-checkbox>
-            </v-list-tile-action>
-            <v-list-tile-content>
-              <v-list-tile-title>Sound</v-list-tile-title>
-              <v-list-tile-sub-title>Auto-update apps at any time. Data charges may apply</v-list-tile-sub-title>
-            </v-list-tile-content>
-          </v-list-tile>
-          <v-list-tile avatar>
-            <v-list-tile-action>
-              <v-checkbox v-model="widgets"></v-checkbox>
-            </v-list-tile-action>
-            <v-list-tile-content>
-              <v-list-tile-title>Auto-add widgets</v-list-tile-title>
-              <v-list-tile-sub-title>Automatically add home screen widgets</v-list-tile-sub-title>
-            </v-list-tile-content>
-          </v-list-tile>
-        </v-list>
-      </v-card-text>
+  <v-container grid-list-md text-xs-center>
+      <v-layout row wrap>
+        <v-flex xs12>
+          <h1 class="text-sm-left"><v-icon large>create</v-icon> CREATE</h1>
+          <v-divider></v-divider>
+          <v-form v-model="valid">
+            <v-text-field
+              v-model="name"
+              :rules="nameRules"
+              :counter="10"
+              label="Name"
+              required
+            ></v-text-field>
+            <v-text-field
+              v-model="email"
+              :rules="emailRules"
+              label="E-mail"
+              required
+            ></v-text-field>
+            <v-menu
+              ref="menu"
+              :close-on-content-click="false"
+              v-model="menu"
+              :nudge-right="40"
+              lazy
+              transition="scale-transition"
+              offset-y
+              full-width
+              min-width="290px"
+            >
+              <v-text-field
+                slot="activator"
+                v-model="date"
+                label="Birthday date"
+                prepend-icon="event"
+                readonly
+              ></v-text-field>
+              <v-date-picker
+                ref="picker"
+                v-model="date"
+                :max="new Date().toISOString().substr(0, 10)"
+                min="1950-01-01"
+                @change="save"
+              ></v-date-picker>
+            </v-menu>
 
-      <div style="flex: 1 1 auto;"></div>
-    </v-card>
-  </v-dialog>
+            <v-select
+              :items="states"
+              v-model="e7"
+              label="Select"
+              multiple
+              chips
+              hint="What are the target regions"
+              persistent-hint
+            ></v-select>
+          </v-form>
+        </v-flex>
+      </v-layout>
+  </v-container>
 </template>
 
 <script>
 
 export default {
   name: 'Teacher_Write',
-  props: ['propsdata'],
-  data () {
-    return {
-      dialog: this.propsdata,
-      notifications: false,
-      sound: true,
-      widgets: false,
-      items: [
-        {
-          title: 'Click Me'
-        },
-        {
-          title: 'Click Me'
-        },
-        {
-          title: 'Click Me'
-        },
-        {
-          title: 'Click Me 2'
-        }
+  data: () => ({
+      date: null,
+      menu: false,
+      valid: false,
+      name: '',
+      nameRules: [
+        v => !!v || 'Name is required',
+        v => v.length <= 10 || 'Name must be less than 10 characters'
       ],
-      select: [
-        { text: 'State 1' },
-        { text: 'State 2' },
-        { text: 'State 3' },
-        { text: 'State 4' },
-        { text: 'State 5' },
-        { text: 'State 6' },
-        { text: 'State 7' }
+      email: '',
+      emailRules: [
+        v => !!v || 'E-mail is required',
+        v => /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v) || 'E-mail must be valid'
+      ],
+      e7: ['Alabama', 'Alaska'],
+      states: [
+        'Alabama', 'Alaska', 'American Samoa', 'Arizona',
+        'Arkansas', 'California', 'Colorado', 'Connecticut',
+        'Delaware', 'District of Columbia', 'Federated States of Micronesia',
+        'Florida', 'Georgia', 'Guam', 'Hawaii', 'Idaho',
+        'Illinois', 'Indiana', 'Iowa', 'Kansas', 'Kentucky',
+        'Louisiana', 'Maine', 'Marshall Islands', 'Maryland',
+        'Massachusetts', 'Michigan', 'Minnesota', 'Mississippi',
+        'Missouri', 'Montana', 'Nebraska', 'Nevada',
+        'New Hampshire', 'New Jersey', 'New Mexico', 'New York',
+        'North Carolina', 'North Dakota', 'Northern Mariana Islands', 'Ohio',
+        'Oklahoma', 'Oregon', 'Palau', 'Pennsylvania', 'Puerto Rico',
+        'Rhode Island', 'South Carolina', 'South Dakota', 'Tennessee',
+        'Texas', 'Utah', 'Vermont', 'Virgin Island', 'Virginia',
+        'Washington', 'West Virginia', 'Wisconsin', 'Wyoming'
       ]
+  }),
+  watch: {
+    menu (val) {
+      val && this.$nextTick(() => (this.$refs.picker.activePicker = 'YEAR'))
+    }
+  },
+  methods: {
+    save (date) {
+      this.$refs.menu.save(date)
     }
   }
 }

@@ -90,6 +90,9 @@ export default {
     return {
       msg: 'Welcome to Your Vue.js App'
     }
+  },
+  created : function() {
+    console.log(this.$route.params.userId)
   }
 }
 </script>

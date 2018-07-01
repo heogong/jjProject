@@ -28,8 +28,7 @@ export default {
     searchTerm: function () {
       // using JSONPlaceholder
       const baseURI = '/hello';
-      this.$http.get(`${baseURI}`)
-      .then((result) => {
+      this.$http.get(`${baseURI}`).then((result) => {
         console.log(result)
         this.posts = result.data
       })

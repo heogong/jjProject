@@ -5,6 +5,8 @@ import TestAxios from '@/components/TestAxios'
 
 import TeacherMaster from '@/components/TEACHER/Master'
 import TeacherList from '@/components/TEACHER/List'
+import TeacherInfo from '@/components/TEACHER/Info'
+import TeacherWrite from '@/components/TEACHER/Write'
 
 Vue.use(Router)
 
@@ -22,9 +24,19 @@ export default new Router({
       component: TestAxios
     },
     {
-      path: '/TEACHER/Master',
-      name: 'Teacher_Mster',
-      component: TeacherMaster
+      path: '/TEACHER',
+      name: 'TeacherList',
+      component: TeacherList
+    },
+    {
+      path: '/TEACHER/Info',
+      name: 'TeacherInfo',
+      component: TeacherInfo
+    },
+    {
+      path: '/TEACHER/Write',
+      name: 'TeacherWrite',
+      component: TeacherWrite
     }
   ]
 })
