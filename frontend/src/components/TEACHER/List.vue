@@ -4,9 +4,7 @@
       <v-flex xs12>
         <h1 class="text-sm-left"><v-icon large>list</v-icon> aaaaaaaaa</h1>
         <v-divider></v-divider>
-
-        <v-btn slot="activator" color="grey darken-2" dark round class="mb-2" 
-          v-on:click="dialog=!dialog">팝업 등록</v-btn>
+        
         <v-btn slot="activator" color="grey darken-2" dark round class="mb-2" 
           to="/TEACHER/write">등록</v-btn>
 
@@ -45,20 +43,15 @@
         <div class="text-xs-center pt-2">
           <v-pagination v-model="pagination.page" :length="pages" :circle=true></v-pagination>
         </div>
-        <!-- <TeacherWrite v-bind:parentData="dialog"></TeacherWrite> -->
       </v-flex>
     </v-layout>
   </v-container>
 </template>
 
 <script>
-import TeacherWrite from '@/components/TEACHER/Write'
 
 export default {
   name: 'Teacher_List',
-  components : {
-      TeacherWrite
-  },
   data () {
     return {
       dialog : false,        

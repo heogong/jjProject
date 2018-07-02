@@ -45,13 +45,34 @@
               ></v-date-picker>
             </v-menu>
 
+            <v-combobox
+              v-model="select"
+              :items="items"
+              chips
+              label="성별"
+            >
+              <template slot="selection" slot-scope="data">
+                <v-chip 
+                  :selected="data.selected"
+                  :disabled="data.disabled"
+                  :key="JSON.stringify(data.item)"
+                  class="v-chip--select-multi "
+                  @input="data.parent.selectItem(data.item)"
+                >
+                  <v-avatar class="accent white--text">
+                    <v-icon>account_circle</v-icon>
+                  </v-avatar>
+                  {{ data.item }}
+                </v-chip>
+              </template>
+            </v-combobox>
+
             <v-select
               :items="states"
               v-model="e7"
               label="Select"
               multiple
               chips
-              hint="What are the target regions"
               persistent-hint
             ></v-select>
           </v-form>
@@ -78,22 +99,15 @@ export default {
         v => !!v || 'E-mail is required',
         v => /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v) || 'E-mail must be valid'
       ],
-      e7: ['Alabama', 'Alaska'],
+      e7: [],
       states: [
         'Alabama', 'Alaska', 'American Samoa', 'Arizona',
         'Arkansas', 'California', 'Colorado', 'Connecticut',
-        'Delaware', 'District of Columbia', 'Federated States of Micronesia',
-        'Florida', 'Georgia', 'Guam', 'Hawaii', 'Idaho',
-        'Illinois', 'Indiana', 'Iowa', 'Kansas', 'Kentucky',
-        'Louisiana', 'Maine', 'Marshall Islands', 'Maryland',
-        'Massachusetts', 'Michigan', 'Minnesota', 'Mississippi',
-        'Missouri', 'Montana', 'Nebraska', 'Nevada',
-        'New Hampshire', 'New Jersey', 'New Mexico', 'New York',
-        'North Carolina', 'North Dakota', 'Northern Mariana Islands', 'Ohio',
-        'Oklahoma', 'Oregon', 'Palau', 'Pennsylvania', 'Puerto Rico',
-        'Rhode Island', 'South Carolina', 'South Dakota', 'Tennessee',
-        'Texas', 'Utah', 'Vermont', 'Virgin Island', 'Virginia',
-        'Washington', 'West Virginia', 'Wisconsin', 'Wyoming'
+        'Delaware', 'District of Columbia', 'Federated States of Micronesia'
+      ],
+      select: '',
+      items: [
+        '남성', '여성'
       ]
   }),
   watch: {

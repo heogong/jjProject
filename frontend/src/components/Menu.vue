@@ -57,8 +57,8 @@ export default {
             title: 'Breakfast & brunch',
             toUrl: '/2' 
           },
-          { title: 'New American' },
-          { title: 'Sushi' }
+          { title: 'New American', toUrl: '/TEST' },
+          { title: 'Sushi', toUrl: '/TEST'  }
         ]
       },
       {
@@ -70,14 +70,20 @@ export default {
         action: 'directions_run',
         title: 'Family',
         items: [
-          { title: 'List Item' }
+          { 
+            title: 'List Item',
+            toUrl: '/2'
+          }
         ]
       },
       {
         action: 'healing',
         title: 'Health',
         items: [
-          { title: 'List Item' }
+          { 
+            title: 'List Item',
+            toUrl: '/2'
+          }
         ]
       },
       {
@@ -88,12 +94,15 @@ export default {
     ]
   }),
   created: function () {
+    const path = this.$route.path.split('/');
+
     for(var i = 0; i < this.items.length; i++) {
-      if(typeof this.items[i].items != 'undefined')
+      if(typeof this.items[i].items != 'undefined') {
         for(var j = 0 ; j < this.items[i].items.length; j++) {
-         if(this.items[i].items[j].toUrl == this.$route.path) {
-           this.items[i].active = true;  
-         }
+          if(this.items[i].items[j].toUrl.indexOf(path[1]) != -1) {
+            this.items[i].active = true;
+          }
+        }
       }
     }
   }

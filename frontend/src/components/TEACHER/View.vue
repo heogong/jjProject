@@ -1,44 +1,54 @@
 <template>
-  <v-card>
-    <v-list two-line subheader>
-      <v-subheader inset>Folders</v-subheader>
-      <v-list-tile v-for="item in items" :key="item.title" avatar>
-        <v-list-tile-avatar>
-          <v-icon :class="[item.iconClass]">{{ item.icon }}</v-icon>
-        </v-list-tile-avatar>
-        <v-list-tile-content>
-          <v-list-tile-title>{{ item.title }}</v-list-tile-title>
-          <v-list-tile-sub-title>{{ item.subtitle }}</v-list-tile-sub-title>
-        </v-list-tile-content>
-        
-      </v-list-tile>
-      <v-divider inset></v-divider>
-      <v-subheader inset>Files</v-subheader>
-      <v-list-tile v-for="item in items2" :key="item.title">
-        <v-list-tile-avatar>
-          <v-icon :class="[item.iconClass]">{{ item.icon }}</v-icon>
-        </v-list-tile-avatar>
-        <v-list-tile-content>
-          <v-list-tile-title>{{ item.title }}</v-list-tile-title>
-          <v-list-tile-sub-title>{{ item.subtitle }}</v-list-tile-sub-title>
-        </v-list-tile-content>
-        <v-list-tile-action>
-          <v-btn icon>
-            <v-icon color="grey lighten-1">info</v-icon>
-          </v-btn>
-        </v-list-tile-action>
-      </v-list-tile>
-    </v-list>
-  </v-card>
+  <div>
+    <v-card>
+      <v-list two-line subheader>
+        <v-subheader inset>Folders</v-subheader>
+        <v-list-tile v-for="item in items" :key="item.title" avatar>
+          <v-list-tile-avatar>
+            <v-icon :class="[item.iconClass]">{{ item.icon }}</v-icon>
+          </v-list-tile-avatar>
+          <v-list-tile-content>
+            <v-list-tile-title>{{ item.title }}</v-list-tile-title>
+            <v-list-tile-sub-title>{{ item.subtitle }}</v-list-tile-sub-title>
+          </v-list-tile-content>
+          
+        </v-list-tile>
+        <v-divider inset></v-divider>
+        <v-subheader inset>Files</v-subheader>
+        <v-list-tile v-for="item in items2" :key="item.title">
+          <v-list-tile-avatar>
+            <v-icon :class="[item.iconClass]">{{ item.icon }}</v-icon>
+          </v-list-tile-avatar>
+          <v-list-tile-content>
+            <v-list-tile-title>{{ item.title }}</v-list-tile-title>
+            <v-list-tile-sub-title>{{ item.subtitle }}</v-list-tile-sub-title>
+          </v-list-tile-content>
+          <v-list-tile-action>
+            <v-btn icon>
+              <v-icon color="grey lighten-1">info</v-icon>
+            </v-btn>
+          </v-list-tile-action>
+        </v-list-tile>
+      </v-list>
+    </v-card>
+    <div class="text-sm-right">
+      <v-btn color="grey darken-2" v-on:click="dialog=!dialog" dark round class="mb-2">수정</v-btn>
+      <v-btn color="grey darken-1" to="/TEACHER" round class="mb-2">취소</v-btn>
+    </div>
+     <TeacherEdit v-bind:parentData="dialog"></TeacherEdit>
+  </div>
 </template>
 
 <script>
+import TeacherEdit from '@/components/TEACHER/Edit'
 
 export default {
+  
   name: 'Teacher_View',
   props : ['parentData'],
   data () {
     return {
+      dialog : false,
       items: [
         { icon: 'account_box', iconClass: 'grey lighten-1 white--text', title: '이름', subtitle: '박정진' },
         { icon: 'cake', iconClass: 'grey lighten-1 white--text', title: '생년월일', subtitle: '1986-07-09' },
@@ -53,6 +63,9 @@ export default {
   },
   created : function() {
     console.log(this.parentData,'view-Userid');
+  },
+  components : {
+    TeacherEdit
   }
 }
 </script>

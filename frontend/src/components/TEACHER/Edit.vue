@@ -7,11 +7,12 @@
     scrollable
   >
     <v-card tile>
+      
       <v-toolbar card dark color="primary">
         <v-btn icon dark @click.native="dialog = false">
           <v-icon>close</v-icon>
         </v-btn>
-        <v-toolbar-title>Settings</v-toolbar-title>
+        <v-toolbar-title>Edit</v-toolbar-title>
         <v-spacer></v-spacer>
         <v-toolbar-items>
           <v-btn dark flat @click.native="dialog = false">Save</v-btn>
@@ -28,6 +29,42 @@
         </v-menu>
       </v-toolbar>
       <v-card-text>
+
+        <v-text-field
+          v-model="name"
+          :rules="nameRules"
+          :counter="10"
+          label="Name"
+          required
+        ></v-text-field>
+
+        <v-menu
+          ref="menu"
+          :close-on-content-click="false"
+          v-model="menu"
+          :nudge-right="40"
+          lazy
+          transition="scale-transition"
+          offset-y
+          full-width
+          min-width="290px"
+        >
+          <v-text-field
+            slot="activator"
+            v-model="date"
+            label="Birthday date"
+            prepend-icon="event"
+            readonly
+          ></v-text-field>
+          <v-date-picker
+            ref="picker"
+            v-model="date"
+            :max="new Date().toISOString().substr(0, 10)"
+            min="1950-01-01"
+            @change="save"
+          ></v-date-picker>
+        </v-menu>
+
         <v-btn color="primary" dark @click.stop="dialog2 = !dialog2">Open Dialog 2</v-btn>
         <v-tooltip right>
           <v-btn slot="activator">Tool Tip Activator</v-btn>
@@ -93,6 +130,9 @@ export default {
   props: ['parentData'],
   data () {
     return {
+      date: '2017-07-02',
+      menu: false,
+      
       dialog: false,
       notifications: false,
       sound: true,
