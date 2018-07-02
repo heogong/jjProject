@@ -5,8 +5,10 @@
         <h1 class="text-sm-left"><v-icon large>list</v-icon> aaaaaaaaa</h1>
         <v-divider></v-divider>
         
-        <v-btn slot="activator" color="grey darken-2" dark round class="mb-2" 
-          to="/TEACHER/write">등록</v-btn>
+        <div class="text-sm-right">
+          <v-btn slot="activator" color="grey darken-2" dark round class="mb-2" 
+            to="/TEACHER/write">등록</v-btn>
+        </div>
 
         <v-data-table
             :headers="headers"

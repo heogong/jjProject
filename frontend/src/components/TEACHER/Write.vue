@@ -42,6 +42,7 @@
                 :max="new Date().toISOString().substr(0, 10)"
                 min="1950-01-01"
                 @change="save"
+                locale="euc-kr"
               ></v-date-picker>
             </v-menu>
 
@@ -78,7 +79,13 @@
           </v-form>
         </v-flex>
       </v-layout>
+      <div class="text-sm-right">
+        <v-btn slot="activator" color="grey darken-2" dark round class="mb-2">저장</v-btn>
+        <v-btn slot="activator" color="grey darken-1" dark round class="mb-2" 
+          to="/TEACHER">취소</v-btn>
+      </div>
   </v-container>
+  
 </template>
 
 <script>
