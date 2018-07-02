@@ -7,7 +7,7 @@
       </v-navigation-drawer>
 
       <!-- header -->
-      <Header v-on:menu-toggle="menuToggle"></Header>
+      <Header v-on:menu-toggle="menuToggle" v-bind:toggleFlag="drawer"></Header>
 
       <!-- 컨텐츠 -->
       <v-content>

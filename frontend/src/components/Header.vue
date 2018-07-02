@@ -9,8 +9,9 @@
 <script>
 export default {
   name: 'Header',
+  props : ['toggleFlag'],
   data: () => ({
-    drawer: true
+    drawer: this.toggleFlag
   }),
   methods: {
     toggleDrawer: function(toggle){

@@ -159,7 +159,12 @@ export default {
         { text: 'State 5' },
         { text: 'State 6' },
         { text: 'State 7' }
-      ]
+      ],
+      name: '박정진',
+      nameRules: [
+        v => !!v || 'Name is required',
+        v => v.length <= 10 || 'Name must be less than 10 characters'
+      ],
     }
   },
   watch: {
