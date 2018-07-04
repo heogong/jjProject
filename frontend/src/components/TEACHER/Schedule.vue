@@ -1,6 +1,5 @@
 <template>
   <div>
-    <h1>스케쥴!!!!!</h1>
     <div id='calendar'></div>
   </div>
 </template>
@@ -8,14 +7,14 @@
 <script>
 import $ from 'jquery';
 import 'fullcalendar';
+import 'fullcalendar/dist/fullcalendar.min.css' // Ensure you are using css-loader
 
 export default {
   name: 'Teacher_Schedule',
-  created : function() {
+  mounted : function() {
     //console.log(this.parentData,'sch-Userid');
-
     var containerEl = $('#calendar');
-    
+
     containerEl.fullCalendar({
       header: {
         left: 'prev,next today',
