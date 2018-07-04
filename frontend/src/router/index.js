@@ -1,9 +1,9 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+
 import HelloWorld from '@/components/HelloWorld'
 import TestAxios from '@/components/TestAxios'
 
-import TeacherMaster from '@/components/TEACHER/Master'
 import TeacherList from '@/components/TEACHER/List'
 import TeacherInfo from '@/components/TEACHER/Info'
 import TeacherWrite from '@/components/TEACHER/Write'

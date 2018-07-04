@@ -94,13 +94,14 @@ export default {
     ]
   }),
   created: function () {
-    const path = this.$route.path.split('/');
+    const routerPath = this.$route.path.split('/');
+    const items = this.items;
 
-    for(var i = 0; i < this.items.length; i++) {
-      if(typeof this.items[i].items != 'undefined') {
-        for(var j = 0 ; j < this.items[i].items.length; j++) {
-          if(this.items[i].items[j].toUrl.indexOf(path[1]) != -1) {
-            this.items[i].active = true;
+    for(var i = 0; i < items.length; i++) {
+      if(typeof items[i].items != 'undefined') {
+        for(var j = 0 ; j < items[i].items.length; j++) {
+          if(items[i].items[j].toUrl.indexOf(routerPath[1]) == 1) {
+            items[i].active = true;
           }
         }
       }

@@ -171,6 +171,11 @@ export default {
     parentData: function() { // watch it
         this.dialog = true
     }
+  },
+  methods: {
+    save (date) {
+      this.$refs.menu.save(date)
+    }
   }
 }
 </script>

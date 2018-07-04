@@ -2,21 +2,43 @@
   <v-container grid-list-md text-xs-center>
     <v-layout row wrap>
       <v-flex xs12>
-        <h1 class="text-sm-left"><v-icon large>list</v-icon> aaaaaaaaa</h1>
+        <v-layout row wrap>
+          <v-flex xs6>
+            <h1 class="text-sm-left"><v-icon large>list</v-icon> LIST</h1>
+          </v-flex>
+          <v-flex xs6>
+            <div class="text-sm-right">
+              <!-- <v-btn  slot="activator" color="grey darken-2" dark round class="mb-2" to="/TEACHER/write">등록</v-btn> -->
+              <v-tooltip bottom>
+                <v-btn slot="activator" dark icon to="/TEACHER/write"><v-icon>edit</v-icon></v-btn> 
+                <span>등록</span>
+              </v-tooltip>
+            </div>
+          </v-flex>
+        </v-layout>
+
         <v-divider></v-divider>
-        
-        <div class="text-sm-right">
-          <v-btn slot="activator" color="grey darken-2" dark round class="mb-2" 
-            to="/TEACHER/write">등록</v-btn>
-        </div>
+
+        <v-layout row wrap>
+          <v-flex xs8></v-flex>
+          <v-flex xs4>
+            <v-text-field
+              v-model="search"
+              append-icon="search"
+              label="Search"
+              single-line
+              hide-details
+            ></v-text-field>
+          </v-flex>
+        </v-layout>
 
         <v-data-table
-            :headers="headers"
-            :items="desserts"
-            :search="search"
-            :pagination.sync="pagination"
-            hide-actions
-            class="elevation-1"
+          :headers="headers"
+          :items="desserts"
+          :search="search"
+          :pagination.sync="pagination"
+          hide-actions
+          class="elevation-1"
         >
           <template slot="headerCell" slot-scope="props">
             <v-tooltip bottom>
