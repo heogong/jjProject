@@ -21,6 +21,7 @@ export default {
       var containerEl = $('#calendar');
 
       containerEl.fullCalendar({
+        //themeSystem: 'bootstrap4',
         locale : 'ko',
         height : 730,
         header: {
