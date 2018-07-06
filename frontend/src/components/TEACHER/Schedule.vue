@@ -1,6 +1,8 @@
 <template>
-  <div style="padding-top:20px">
+  <div>
+    <v-card>
     <div id='calendar'></div>
+    </v-card>
   </div>
 </template>
 
@@ -23,7 +25,7 @@ export default {
       containerEl.fullCalendar({
         //themeSystem: 'bootstrap4',
         locale : 'ko',
-        height : 730,
+        //height : 730,
         header: {
           left: 'prev,next today',
           center: 'title',
@@ -103,6 +105,70 @@ export default {
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
+<style>
 
+/* 캘린더 border(라인) 색 */
+.fc-unthemed tbody, .fc-unthemed td, .fc-unthemed th, .fc-unthemed thead {
+  border-color: #303030;
+}
+
+/* 이벤트 색 */
+.fc-event {
+  background-color : #5f4ebb; /*#004d40*/
+  border: 1px solid #5f4ebb;
+}
+
+/* 날짜(일) 색 */
+a {
+  color : #ffffff;
+}
+
+/* 캘린더 최상단 영역 */
+.fc-toolbar.fc-header-toolbar {
+  padding : 18px 10px 10px 10px;
+  border: 1px solid #303030;
+}
+
+/* 캘린더 최상단 활성된 버튼 header 뒤로 */
+.fc-toolbar .fc-state-active {
+  z-index: 0
+}
+
+.fc-toolbar.fc-header-toolbar {
+  margin-bottom: 0;
+}
+
+.fc-unthemed .fc-popover {
+  border-style : none;
+}
+
+/* more 클릭 팝오버 상단 색 */
+.fc-unthemed .fc-popover .fc-header {
+  background: #067d69;
+}
+
+/* 오늘날짜 활성화  */
+.fc-unthemed td.fc-today {
+  background: #757575;
+}
+
+/* list 화면 요일 타이틀 */
+.fc-unthemed .fc-divider, .fc-unthemed .fc-list-heading td{
+  background: #303030;
+}
+
+/* list 화면 border 색 */
+.fc-unthemed .fc-list-view {
+  border-color: #303030;
+}
+
+/* list 화면 hover 색 */
+.fc-unthemed .fc-list-item:hover td {
+  background-color: #525050; 
+}
+
+/* list 화면 일정 없을때 색 */
+.fc-unthemed .fc-list-empty {
+  background-color: #424242;
+}
 </style>
