@@ -172,13 +172,23 @@ a {
   background-color: #424242;
 }
 
-/* 토요일 */
+/* 과거 토요일 */
 .fc-day-top.fc-sat.fc-past a { 
   color:#0000FF; 
 }
 
-/* 일요일 */
+/* 과거 일요일 */
 .fc-day-top.fc-sun.fc-past a { 
+  color:#FF0000; 
+}
+
+/* 미래 토요일 */
+.fc-day-top.fc-sat.fc-future a { 
+  color:#0000FF; 
+}
+
+/* 미래 일요일 */
+.fc-day-top.fc-sun.fc-future a { 
   color:#FF0000; 
 }
 </style>
