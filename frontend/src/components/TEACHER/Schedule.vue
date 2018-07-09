@@ -134,6 +134,10 @@ a {
   z-index: 0
 }
 
+.fc-toolbar button:focus {
+  z-index: 0
+}
+
 .fc-toolbar.fc-header-toolbar {
   margin-bottom: 0;
 }
@@ -172,23 +176,14 @@ a {
   background-color: #424242;
 }
 
-/* 과거 토요일 */
-.fc-day-top.fc-sat.fc-past a { 
+/* 토요일 */
+.fc-day-top.fc-sat a { 
   color:#0000FF; 
 }
 
-/* 과거 일요일 */
-.fc-day-top.fc-sun.fc-past a { 
+/* 일요일 */
+.fc-day-top.fc-sun a { 
   color:#FF0000; 
 }
 
-/* 미래 토요일 */
-.fc-day-top.fc-sat.fc-future a { 
-  color:#0000FF; 
-}
-
-/* 미래 일요일 */
-.fc-day-top.fc-sun.fc-future a { 
-  color:#FF0000; 
-}
 </style>
