@@ -51,21 +51,21 @@
             </v-tooltip>
           </template>
           <template slot="items" slot-scope="props">
-            <td>{{ props.item.name }}</td>
-            <td class="text-xs-center">{{ props.item.calories }}</td>
-            <td class="text-xs-center">{{ props.item.fat }}</td>
-            <td class="text-xs-center">{{ props.item.carbs }}</td>
-            <td class="text-xs-center">{{ props.item.protein }}</td>
-            <td class="text-xs-center">{{ props.item.iron }}</td>
+            <td>{{ props.item.userId }}</td>
+            <td class="text-xs-center">{{ props.item.userNm }}</td>
+            <td class="text-xs-center">{{ props.item.userAge }}</td>
+            <td class="text-xs-center">{{ props.item.userTel }}</td>
+            <td class="text-xs-center">{{ props.item.userSt }}</td>
+            <td class="text-xs-center">{{ props.item.instDt }}</td>
             <td class="text-xs-center">
-              <router-link :to="{ name: 'TeacherInfo', params: { userId: 123 }}">
+              <router-link :to="{ name: 'TeacherInfo', params: { userId: props.item.seq }}">
                 <v-icon color="white">search</v-icon>
               </router-link>
             </td>
           </template>
         </v-data-table>
         <div class="text-xs-center pt-2">
-          <v-pagination v-model="pagination.page" :length="pages" :circle=true></v-pagination>
+          <v-pagination v-model="pagination.page" :length="pages" :circle=true @input="getUserList"></v-pagination>
         </div>
       </v-flex>
     </v-layout>
@@ -83,106 +83,40 @@ export default {
       pagination: {},
       selected: [],
       headers: [
-        { text: 'Dessert (100g serving)', value: 'name', align: 'center', sortable: true},
-        { text: 'Calories', value: 'calories', align: 'center', sortable: false},
-        { text: 'Fat (g)', value: 'fat', align: 'center', sortable: false },
-        { text: 'Carbs (g)', value: 'carbs', align: 'center', sortable: false },
-        { text: 'Protein (g)', value: 'protein', align: 'center', sortable: false },
-        { text: 'Iron (%)', value: 'iron', align: 'center', sortable: false },
+        { text: '사용자 ID', value: 'userId', align: 'center', sortable: true},
+        { text: '이름', value: 'userNm', align: 'center', sortable: false},
+        { text: '나이', value: 'userAge', align: 'center', sortable: false },
+        { text: '전화번호', value: 'userTel', align: 'center', sortable: false },
+        { text: '상태', value: 'userSt', align: 'center', sortable: false },
+        { text: '등록일', value: 'instDt', align: 'center', sortable: false },
         { text: 'view', value: 'view', align: 'center', sortable: false }
       ],
       desserts: [
-        {
-          value: false,
-          name: 'Frozen Yogurt',
-          calories: 159,
-          fat: 6.0,
-          carbs: 24,
-          protein: 4.0,
-          iron: '1%'
-        },
-        {
-          value: false,
-          name: 'Ice cream sandwich',
-          calories: 237,
-          fat: 9.0,
-          carbs: 37,
-          protein: 4.3,
-          iron: '1%'
-        },
-        {
-          value: false,
-          name: 'Eclair',
-          calories: 262,
-          fat: 16.0,
-          carbs: 23,
-          protein: 6.0,
-          iron: '7%'
-        },
-        {
-          value: false,
-          name: 'Cupcake',
-          calories: 305,
-          fat: 3.7,
-          carbs: 67,
-          protein: 4.3,
-          iron: '8%'
-        },
-        {
-          value: false,
-          name: 'Gingerbread',
-          calories: 356,
-          fat: 16.0,
-          carbs: 49,
-          protein: 3.9,
-          iron: '16%'
-        },
-        {
-          value: false,
-          name: 'Jelly bean',
-          calories: 375,
-          fat: 0.0,
-          carbs: 94,
-          protein: 0.0,
-          iron: '0%'
-        },
-        {
-          value: false,
-          name: 'Lollipop',
-          calories: 392,
-          fat: 0.2,
-          carbs: 98,
-          protein: 0,
-          iron: '2%'
-        },
-        {
-          value: false,
-          name: 'Honeycomb',
-          calories: 408,
-          fat: 3.2,
-          carbs: 87,
-          protein: 6.5,
-          iron: '45%'
-        },
-        {
-          value: false,
-          name: 'Donut',
-          calories: 452,
-          fat: 25.0,
-          carbs: 51,
-          protein: 4.9,
-          iron: '22%'
-        },
-        {
-          value: false,
-          name: 'KitKat',
-          calories: 518,
-          fat: 26.0,
-          carbs: 65,
-          protein: 7,
-          iron: '6%'
-        }
+        // {
+        //   value: false,
+        //   userId: 'Frozen Yogurt',
+        //   userNm: 159,
+        //   userAge: 6.0,
+        //   userTel: 24,
+        //   userSt: 4.0,
+        //   insertDt: '1%'
+        // } 샘플 데이터
       ]
+    }
+  },
+  created : function() {
+    this.getUserList();
+  },
+  methods: {
+    getUserList : function(page) {
+      //const baseURI = '/user/getAxiosListUser';
+      const baseURI ='http://localhost:8080/user/getAxiosListUser';
+      this.$http.get(`${baseURI}`).then((result) => {
+
+        this.desserts = result.data.content
+        this.pagination.totalItems = result.data.totalElements
+        this.pagination.rowsPerPage = result.data.numberOfElements
+      })
     }
   },
   computed: {
