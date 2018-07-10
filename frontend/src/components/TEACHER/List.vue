@@ -37,6 +37,7 @@
           :items="desserts"
           :search="search"
           :pagination.sync="pagination"
+          :loading="loading"
           hide-actions
           class="elevation-1"
         >
@@ -78,10 +79,11 @@ export default {
   name: 'Teacher_List',
   data () {
     return {
-      dialog : false,        
+      dialog : false,
       search: '',
       pagination: {},
       selected: [],
+      loading: true,
       headers: [
         { text: '사용자 ID', value: 'userId', align: 'center', sortable: true},
         { text: '이름', value: 'userNm', align: 'center', sortable: false},
@@ -105,19 +107,23 @@ export default {
     }
   },
   created : function() {
-    this.getUserList();
+    //this.getDataFromApi();
   },
   methods: {
     getUserList : function(page) {
       //const baseURI = '/user/getAxiosListUser';
       const baseURI ='http://localhost:8080/user/getAxiosListUser';
-      this.$http.get(`${baseURI}`).then((result) => {
-
-        this.desserts = result.data.content
-        this.pagination.totalItems = result.data.totalElements
-        this.pagination.rowsPerPage = result.data.numberOfElements
+      // this.$http.get(`${baseURI}`).then((result) => {
+      //   this.desserts = result.data.content
+      //   this.pagination.totalItems = result.data.totalElements
+      //   this.pagination.rowsPerPage = result.data.numberOfElements
+      // })
+      return this.$http.get(`${baseURI}`,{
+        params : {
+          page : page - 1
+        }
       })
-    }
+    },
   },
   computed: {
     pages () {
@@ -127,6 +133,30 @@ export default {
 
       return Math.ceil(this.pagination.totalItems / this.pagination.rowsPerPage)
     }
+  },
+  // watch: {
+  //   pagination: {
+  //     handler () {
+  //       this.getUserList()
+  //         .then(result => {
+  //           console.log(result.data)
+  //           this.desserts = result.data.content
+  //           this.pagination.totalItems = result.data.totalElements
+  //           this.pagination.rowsPerPage = result.data.numberOfElements
+  //         })
+  //     },
+  //     deep: true
+  //   }
+  // },
+  mounted () {
+    this.getUserList()
+      .then(result => {
+        console.log(result.data)
+        this.desserts = result.data.content
+        this.totalDesserts = result.data.totalElements
+        this.pagination.totalItems = result.data.totalElements
+        this.pagination.rowsPerPage = result.data.numberOfElements
+    })
   }
 }
 </script>
