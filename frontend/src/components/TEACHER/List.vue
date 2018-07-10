@@ -79,6 +79,7 @@ export default {
   name: 'Teacher_List',
   data () {
     return {
+      abc : 'hello',
       dialog : false,
       search: '',
       pagination: {},
@@ -107,7 +108,7 @@ export default {
     }
   },
   created : function() {
-    //this.getDataFromApi();
+    //this.getUserList();
   },
   methods: {
     getUserList : function(page) {
@@ -151,7 +152,6 @@ export default {
   mounted () {
     this.getUserList()
       .then(result => {
-        console.log(result.data)
         this.desserts = result.data.content
         this.totalDesserts = result.data.totalElements
         this.pagination.totalItems = result.data.totalElements
