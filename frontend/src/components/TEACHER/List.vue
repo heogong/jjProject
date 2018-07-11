@@ -65,6 +65,7 @@
             </td>
           </template>
         </v-data-table>
+        <div>{{message}}</div>
         <div class="text-xs-center pt-2">
           <v-pagination v-model="pagination.page" :length="pages" :circle=true @input="getUserList"></v-pagination>
         </div>
@@ -79,7 +80,7 @@ export default {
   name: 'Teacher_List',
   data () {
     return {
-      abc : 'hello',
+      message : '',
       dialog : false,
       search: '',
       pagination: {},
@@ -108,23 +109,28 @@ export default {
     }
   },
   created : function() {
-    //this.getUserList();
+    this.getUserList();
   },
   methods: {
     getUserList : function(page) {
       //const baseURI = '/user/getAxiosListUser';
       const baseURI ='http://localhost:8080/user/getAxiosListUser';
-      // this.$http.get(`${baseURI}`).then((result) => {
-      //   this.desserts = result.data.content
-      //   this.pagination.totalItems = result.data.totalElements
-      //   this.pagination.rowsPerPage = result.data.numberOfElements
-      // })
-      return this.$http.get(`${baseURI}`,{
+      this.$http.get(`${baseURI}`,{
         params : {
           page : page - 1
         }
+      }).then((result) => {
+        this.message = result.data.content[0].userId
+        this.desserts = result.data.content
+        this.pagination.totalItems = result.data.totalElements
+        this.pagination.rowsPerPage = result.data.numberOfElements
       })
-    },
+      // return this.$http.get(`${baseURI}`,{
+      //   params : {
+      //     page : page - 1
+      //   }
+      // })
+    }
   },
   computed: {
     pages () {
@@ -149,15 +155,15 @@ export default {
   //     deep: true
   //   }
   // },
-  mounted () {
-    this.getUserList()
-      .then(result => {
-        this.desserts = result.data.content
-        this.totalDesserts = result.data.totalElements
-        this.pagination.totalItems = result.data.totalElements
-        this.pagination.rowsPerPage = result.data.numberOfElements
-    })
-  }
+  // mounted () {
+  //   this.getUserList()
+  //     .then(result => {
+  //       this.desserts = result.data.content
+  //       this.totalDesserts = result.data.totalElements
+  //       this.pagination.totalItems = result.data.totalElements
+  //       this.pagination.rowsPerPage = result.data.numberOfElements
+  //   })
+  // }
 }
 </script>
 
