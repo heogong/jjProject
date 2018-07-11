@@ -67,7 +67,7 @@
         </v-data-table>
         <div>{{message}}</div>
         <div class="text-xs-center pt-2">
-          <v-pagination v-model="pagination.page" :length="pages" :circle=true @input="getUserList"></v-pagination>
+          <v-pagination v-model="pageNum" :length="pages" :circle=true @input="getUserList"></v-pagination>
         </div>
       </v-flex>
     </v-layout>
@@ -86,6 +86,7 @@ export default {
       pagination: {},
       selected: [],
       loading: true,
+      pageNum : 1, // 테스트
       headers: [
         { text: '사용자 ID', value: 'userId', align: 'center', sortable: true},
         { text: '이름', value: 'userNm', align: 'center', sortable: false},
@@ -179,3 +180,4 @@ a {
   text-decoration: none;
 }
 </style>
+
