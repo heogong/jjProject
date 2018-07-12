@@ -117,7 +117,7 @@ export default {
         this.loading = false
 
         //const baseURI = '/user/getAxiosListUser';
-        const baseURI ='http://localhost:8080/user/getAxiosListUser';
+        const baseURI ='http://localhost:8080/user/getListUser';
         this.$http.get(`${baseURI}`,{
           params : {
             page : page - 1,
