@@ -23,12 +23,14 @@
           <v-flex xs8></v-flex>
           <v-flex xs4>
             <v-text-field
-              v-model="search"
               append-icon="search"
               label="Search"
               single-line
               hide-details
-            ></v-text-field>
+              @keyup.enter="getUserList()"
+              v-model="searchValue"
+            >
+            </v-text-field><!-- v-model="search" : v-text-field 프로퍼티 입력 즉시 값을 검색-->
           </v-flex>
         </v-layout>
 
@@ -65,7 +67,6 @@
             </td>
           </template>
         </v-data-table>
-        <div>{{message}}</div>
         <div class="text-xs-center pt-2">
           <v-pagination v-model="pageNum" :length="pages" :circle=true @input="getUserList"></v-pagination>
         </div>
@@ -80,13 +81,11 @@ export default {
   name: 'Teacher_List',
   data () {
     return {
-      message : '',
-      dialog : false,
+      searchValue: '',
       search: '',
       pagination: {},
-      selected: [],
       loading: true,
-      pageNum : 1, // 테스트
+      pageNum : 1, // 페이징을 클릭 해도 현재페이지 '1' 만 유지한다 -- 실시간으로 데이터를 가져올때만 사용
       headers: [
         { text: '사용자 ID', value: 'userId', align: 'center', sortable: true},
         { text: '이름', value: 'userNm', align: 'center', sortable: false},
@@ -94,7 +93,7 @@ export default {
         { text: '전화번호', value: 'userTel', align: 'center', sortable: false },
         { text: '상태', value: 'userSt', align: 'center', sortable: false },
         { text: '등록일', value: 'instDt', align: 'center', sortable: false },
-        { text: 'view', value: 'view', align: 'center', sortable: false }
+        { text: '조회', value: '조회', align: 'center', sortable: false }
       ],
       desserts: [
         // {
@@ -114,57 +113,38 @@ export default {
   },
   methods: {
     getUserList : function(page) {
-      //const baseURI = '/user/getAxiosListUser';
-      const baseURI ='http://localhost:8080/user/getAxiosListUser';
-      this.$http.get(`${baseURI}`,{
-        params : {
-          page : page - 1
-        }
-      }).then((result) => {
-        this.message = result.data.content[0].userId
-        this.desserts = result.data.content
-        this.pagination.totalItems = result.data.totalElements
-        this.pagination.rowsPerPage = result.data.numberOfElements
-      })
-      // return this.$http.get(`${baseURI}`,{
-      //   params : {
-      //     page : page - 1
-      //   }
-      // })
+      setTimeout(() => {
+        this.loading = false
+
+        //const baseURI = '/user/getAxiosListUser';
+        const baseURI ='http://localhost:8080/user/getAxiosListUser';
+        this.$http.get(`${baseURI}`,{
+          params : {
+            page : page - 1,
+            search : this.searchValue
+          }
+        }).then((result) => {
+          this.desserts = result.data.content
+          this.pagination.totalItems = result.data.totalElements
+          this.pagination.rowsPerPage = result.data.numberOfElements
+        }).catch(error => {
+          console.log(error)
+        })
+      }, 700)
+
+      this.loading = true
+    },
+    testAlert : function() {
+      alert("ddddddddddd")
     }
   },
   computed: {
     pages () {
-      if (this.pagination.rowsPerPage == null ||
-        this.pagination.totalItems == null
-      ) return 0
+      if (this.pagination.rowsPerPage == null || this.pagination.totalItems == null) return 0
 
       return Math.ceil(this.pagination.totalItems / this.pagination.rowsPerPage)
     }
-  },
-  // watch: {
-  //   pagination: {
-  //     handler () {
-  //       this.getUserList()
-  //         .then(result => {
-  //           console.log(result.data)
-  //           this.desserts = result.data.content
-  //           this.pagination.totalItems = result.data.totalElements
-  //           this.pagination.rowsPerPage = result.data.numberOfElements
-  //         })
-  //     },
-  //     deep: true
-  //   }
-  // },
-  // mounted () {
-  //   this.getUserList()
-  //     .then(result => {
-  //       this.desserts = result.data.content
-  //       this.totalDesserts = result.data.totalElements
-  //       this.pagination.totalItems = result.data.totalElements
-  //       this.pagination.rowsPerPage = result.data.numberOfElements
-  //   })
-  // }
+  }
 }
 </script>
 
