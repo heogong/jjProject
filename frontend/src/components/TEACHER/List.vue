@@ -126,7 +126,7 @@ export default {
         }).then((result) => {
           this.desserts = result.data.content
           this.pagination.totalItems = result.data.totalElements
-          this.pagination.rowsPerPage = result.data.numberOfElements
+          this.pagination.rowsPerPage = result.data.pageable.pageSize
         }).catch(error => {
           console.log(error)
         })
