@@ -62,6 +62,7 @@ export default {
     }
   },
   created : function() {
+    this.userId = this.parentData
     console.log(this.parentData,'view-Userid');
   },
   components : {

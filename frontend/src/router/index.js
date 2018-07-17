@@ -29,7 +29,7 @@ export default new Router({
       component: TeacherList
     },
     {
-      path: '/TEACHER/Info',
+      path: '/TEACHER/Info/:userId',
       name: 'TeacherInfo',
       component: TeacherInfo
     },
