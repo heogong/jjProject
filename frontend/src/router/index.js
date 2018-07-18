@@ -8,6 +8,8 @@ import TeacherList from '@/components/TEACHER/List'
 import TeacherInfo from '@/components/TEACHER/Info'
 import TeacherWrite from '@/components/TEACHER/Write'
 
+import CompanyList from '@/components/COMPANY/List'
+
 Vue.use(Router)
 
 export default new Router({
@@ -37,6 +39,11 @@ export default new Router({
       path: '/TEACHER/Write',
       name: 'TeacherWrite',
       component: TeacherWrite
+    },
+    {
+      path: '/COMPANY',
+      name: 'CompanyList',
+      component: CompanyList
     }
   ]
 })

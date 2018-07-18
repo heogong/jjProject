@@ -41,7 +41,7 @@ export default {
     items: [
       {
         action: 'person',
-        title: '선생님1111',
+        title: 'USER',
         items: [
           { 
             title: 'List Item',
@@ -77,12 +77,16 @@ export default {
         ]
       },
       {
-        action: 'healing',
-        title: 'Health',
+        action: 'fingerprint',
+        title: 'SYSTEM',
         items: [
           { 
-            title: 'List Item',
-            toUrl: '/2'
+            title: '회사',
+            toUrl: '/COMPANY'
+          },
+          { 
+            title: '관리자',
+            toUrl: '/ADMIN'
           }
         ]
       },
