@@ -81,12 +81,8 @@ export default {
         title: 'SYSTEM',
         items: [
           { 
-            title: '회사',
+            title: '법인',
             toUrl: '/COMPANY'
-          },
-          { 
-            title: '관리자',
-            toUrl: '/ADMIN'
           }
         ]
       },
