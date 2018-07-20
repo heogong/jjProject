@@ -6,27 +6,39 @@
           <v-divider></v-divider>
           <v-form v-model="valid">
             <v-text-field
-              v-model="name"
+              v-model="compNm"
               :rules="nameRules"
-              :counter="10"
+              :counter="15"
               label="법인명"
               required
             ></v-text-field>
+
             <v-text-field
-              v-model="name"
+              v-model="compOwner"
               :rules="nameRules"
               :counter="10"
               label="대표"
               required
             ></v-text-field>
 
-            <v-input
-              v-model="phone"
+            <v-text-field
+              v-model="compPhone"
               :rules="phoneRules"
               :counter="12"
+              @keypress="isNumber"
               label="전화번호"
               required
-            ></v-input>
+              prepend-icon="phone"
+            ></v-text-field>
+
+            <v-text-field
+              v-model="compAddress"
+              :rules="addressRules"
+              :counter="50"
+              label="주소"
+              required
+              prepend-icon="business"
+            ></v-text-field>
 
           </v-form>
         </v-flex>
@@ -48,20 +60,30 @@ export default {
       date: null,
       menu: false,
       valid: false,
-      name: '',
+      compNm: '',
+      compOwner: '',
+      compPhone: '',
       nameRules: [
         v => !!v || 'Name is required',
-        v => v.length <= 10 || 'Name must be less than 10 characters'
+        v => v.length <= 15 || 'Name must be less than 15 characters'
       ],
-      phone: '',
       phoneRules : [
-        v => !!v || 'E-mail is required',
-        v => /^[0-9]*$/ || 'E-mail must be valid'
+        v => !!v || '전화번호는 필수 입력 입니다.',
+        v => v.length <= 12 || '12자 내외로 입력해 주세요.'
+      ],
+      addressRules : [
+        v => v.length <= 50 || '50자 내외로 입력해 주세요.'
       ]
   }),
   methods: {
-    save (date) {
-      this.$refs.menu.save(date)
+    isNumber: function(evt) {
+      evt = (evt) ? evt : window.event;
+      var charCode = (evt.which) ? evt.which : evt.keyCode;
+      if ((charCode > 31 && (charCode < 48 || charCode > 57)) && charCode !== 46) {
+        evt.preventDefault();;
+      } else {
+        return true;
+      }
     }
   }
 }
