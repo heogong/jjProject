@@ -22,7 +22,7 @@
             ></v-text-field>
 
             <v-text-field
-              v-model="compPhone"
+              v-model="compTel"
               :rules="phoneRules"
               :counter="12"
               @keypress="isNumber"
@@ -44,7 +44,8 @@
         </v-flex>
       </v-layout>
       <div class="text-sm-right">
-        <v-btn slot="activator" color="grey darken-2" dark round class="mb-2">저장</v-btn>
+        <v-btn slot="activator" color="grey darken-2" dark round class="mb-2" 
+          :disabled="!valid" @click="createCompany">저장</v-btn>
         <v-btn slot="activator" color="grey darken-1" dark round class="mb-2" 
           to="/COMPANY">취소</v-btn>
       </div>
@@ -62,7 +63,7 @@ export default {
       valid: false,
       compNm: '',
       compOwner: '',
-      compPhone: '',
+      compTel: '',
       nameRules: [
         v => !!v || 'Name is required',
         v => v.length <= 15 || 'Name must be less than 15 characters'
@@ -84,6 +85,20 @@ export default {
       } else {
         return true;
       }
+    },
+    createCompany : function() {
+      const baseURI ='http://localhost:8080/comp/createCompany';
+      this.$http.get(`${baseURI}`,{
+        params : {
+          compNm : this.compNm,
+          compOwner : this.compOwner,
+          compTel : this.compTel
+        }
+      }).then((result) => {
+        console.log(result)
+      }).catch(error => {
+        console.log(error.response)
+      });
     }
   }
 }
