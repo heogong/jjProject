@@ -82,7 +82,7 @@ export default {
       pagination: {},
       loading: true,
       headers: [
-        { text: '법인명', value: 'compNm', align: 'center', sortable: true},
+        { text: '법인명', value: 'compNm', align: 'center', sortable: false},
         { text: '대표', value: 'compOwner', align: 'center', sortable: false},
         { text: '전화번호', value: 'compTel', align: 'center', sortable: false },
         { text: '등록일', value: 'instDt', align: 'center', sortable: false },

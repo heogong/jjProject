@@ -32,7 +32,7 @@
             ></v-text-field>
 
             <v-text-field
-              v-model="compAddress"
+              v-model="compAddr"
               :rules="addressRules"
               :counter="50"
               label="주소"
@@ -49,6 +49,27 @@
         <v-btn slot="activator" color="grey darken-1" dark round class="mb-2" 
           to="/COMPANY">취소</v-btn>
       </div>
+
+      <v-snackbar
+      v-model="snackbar"
+      :bottom="y === 'bottom'"
+      :left="x === 'left'"
+      :multi-line="mode === 'multi-line'"
+      :right="x === 'right'"
+      :timeout="timeout"
+      :top="y === 'top'"
+      :vertical="mode === 'vertical'"
+    >
+      aaaaa
+      <v-btn
+        color="pink"
+        flat
+        @click="snackbar = false"
+      >
+        Close
+      </v-btn>
+    </v-snackbar>
+
   </v-container>
   
 </template>
@@ -64,6 +85,7 @@ export default {
       compNm: '',
       compOwner: '',
       compTel: '',
+      compAddr: '',
       nameRules: [
         v => !!v || 'Name is required',
         v => v.length <= 15 || 'Name must be less than 15 characters'
@@ -92,11 +114,14 @@ export default {
         params : {
           compNm : this.compNm,
           compOwner : this.compOwner,
-          compTel : this.compTel
+          compTel : this.compTel,
+          compAddr : this.compAddr
         }
       }).then((result) => {
-        console.log(result)
+        alert("등록완료")
+        this.$router.push({ name: 'CompanyList' }) 
       }).catch(error => {
+        alert(error.response.status)
         console.log(error.response)
       });
     }
