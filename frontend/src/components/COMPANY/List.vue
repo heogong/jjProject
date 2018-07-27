@@ -69,6 +69,27 @@
         </div>
       </v-flex>
     </v-layout>
+      
+      <v-snackbar
+      v-model="snackbar"
+      :bottom="y === 'bottom'"
+      :left="x === 'left'"
+      :multi-line="mode === 'multi-line'"
+      :right="x === 'right'"
+      :timeout="timeout"
+      :top="y === 'top'"
+      :vertical="mode === 'vertical'"
+      >
+      {{text}}
+      <v-btn
+        color="pink"
+        flat
+        @click="snackbar = false"
+      >
+        Close
+      </v-btn>
+    </v-snackbar>
+
   </v-container>
 </template>
 
@@ -78,6 +99,14 @@ export default {
   name: 'Teacher_List',
   data () {
     return {
+
+      snackbar: false,
+      y: 'bottom',
+      x: null,
+      mode: '',
+      timeout: 6000,
+      text: '등록이 완료되었습니다.',
+
       search: '',
       pagination: {},
       loading: true,
@@ -92,6 +121,10 @@ export default {
     }
   },
   created : function() {
+    setTimeout(() => {
+      this.snackbar = this.$route.params.snackbar
+    }, 500)
+
     this.getUserList();
   },
   methods: {
