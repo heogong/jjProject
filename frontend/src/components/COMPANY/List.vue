@@ -58,7 +58,7 @@
             <td class="text-xs-center">{{ props.item.compTel }}</td>
             <td class="text-xs-center">{{ moment(props.item.instDt).format('YYYY.MM.DD') }}</td>
             <td class="text-xs-center">
-              <router-link :to="{ name: 'TeacherInfo', params: { userId: props.item.compSeq }}">
+              <router-link :to="{ name: 'CompanyInfo', params: { compSeq: props.item.compSeq }}">
                 <v-icon color="white">search</v-icon>
               </router-link>
             </td>
@@ -105,7 +105,7 @@ export default {
       x: null,
       mode: '',
       timeout: 6000,
-      text: '등록이 완료되었습니다.',
+      text: '등록이 완료 되었습니다.',
 
       search: '',
       pagination: {},
@@ -123,7 +123,7 @@ export default {
   created : function() {
     setTimeout(() => {
       this.snackbar = this.$route.params.snackbar
-    }, 500)
+    }, 300)
 
     this.getUserList();
   },
