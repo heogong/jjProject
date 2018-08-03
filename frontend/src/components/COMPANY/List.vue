@@ -70,16 +70,16 @@
       </v-flex>
     </v-layout>
       
-      <v-snackbar
-      v-model="snackbar"
-      :bottom="y === 'bottom'"
-      :left="x === 'left'"
-      :multi-line="mode === 'multi-line'"
-      :right="x === 'right'"
-      :timeout="timeout"
-      :top="y === 'top'"
-      :vertical="mode === 'vertical'"
-      >
+    <v-snackbar
+    v-model="snackbar"
+    :bottom="y === 'bottom'"
+    :left="x === 'left'"
+    :multi-line="mode === 'multi-line'"
+    :right="x === 'right'"
+    :timeout="timeout"
+    :top="y === 'top'"
+    :vertical="mode === 'vertical'"
+    >
       {{text}}
       <v-btn
         color="pink"
@@ -96,17 +96,17 @@
 <script>
 
 export default {
-  name: 'Teacher_List',
+  name: 'Comapny_List',
   data () {
     return {
-
+      //snacker
       snackbar: false,
       y: 'bottom',
       x: null,
       mode: '',
       timeout: 6000,
       text: '등록이 완료 되었습니다.',
-
+      //snacker
       search: '',
       pagination: {},
       loading: true,

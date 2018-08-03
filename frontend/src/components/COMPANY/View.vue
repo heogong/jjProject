@@ -18,51 +18,88 @@
       <v-btn v-on:click="dialog=!dialog" outline class="mb-2">수정</v-btn>
       <v-btn to="/COMPANY" dark outline class="mb-2">취소</v-btn>
     </div>
-     <TeacherEdit v-bind:parentData="dialog"></TeacherEdit>
+     <CompanyEdit v-bind:parentData="[dialog, data]" v-on:send-success="successSnackbar"></CompanyEdit>
+
+    <v-snackbar
+    v-model="snackbar"
+    :bottom="y === 'bottom'"
+    :left="x === 'left'"
+    :multi-line="mode === 'multi-line'"
+    :right="x === 'right'"
+    :timeout="timeout"
+    :top="y === 'top'"
+    :vertical="mode === 'vertical'"
+    >
+      {{text}}
+      <v-btn
+        color="pink"
+        flat
+        @click="snackbar = false"
+      >
+        Close
+      </v-btn>
+    </v-snackbar>
   </div>
 </template>
 
 <script>
-import TeacherEdit from '@/components/TEACHER/Edit'
+import CompanyEdit from '@/components/COMPANY/Edit'
 
 export default {
   
-  name: 'Teacher_View',
+  name: 'Company_View',
   props : ['parentData'],
   data () {
     return {
+      snackbar: false,
+      y: 'bottom',
+      x: null,
+      mode: '',
+      timeout: 6000,
+      text: '수정이 완료 되었습니다.',
+
       dialog : false,
-      items : []
+      items : [],
+      data : ''
     }
   },
   created : function() {
-    this.compSeq = this.parentData
-
-    //const baseURI = '/comp/viewCompany';
-    const baseURI ='http://localhost:8080/comp/viewCompany';
-    this.$http.get(`${baseURI}`, {
-      params : {
-        compSeq : this.compSeq 
-      }
-    }).then((result) => {
-      console.log(result.data)
-      this.items = [
-        { icon: 'account_box', iconClass: 'grey lighten-1 white--text', title: '회사명', subtitle: result.data.compNm},
-        { icon: 'cake', iconClass: 'grey lighten-1 white--text', title: '대표', subtitle: result.data.compOwner },
-        { icon: 'phone_iphone', iconClass: 'grey lighten-1 white--text', title: '전화번호', subtitle: result.data.compTel },
-        { icon: 'wc', iconClass: 'grey lighten-1 white--text', title: '주소', subtitle: result.data.compAddr },
-        { icon: 'wc', iconClass: 'grey lighten-1 white--text', title: '등록일', subtitle: result.data.instDt }
-        //{ icon: 'wc', iconClass: 'grey lighten-1 white--text', title: '등록일', subtitle: moment(result.data.instDt).format('YYYY.MM.DD') }
-        
-      ]
-
-    }).catch(error => {
-      console.log(error)
-    })
-
+    this.viewCompany()
   },
   components : {
-    TeacherEdit
+    CompanyEdit
+  },
+  methods : {
+    viewCompany : function() {
+      this.compSeq = this.parentData
+
+      //const baseURI = '/comp/viewCompany';
+      const baseURI ='http://localhost:8080/comp/viewCompany';
+      this.$http.get(`${baseURI}`, {
+        params : {
+          compSeq : this.compSeq 
+        }
+      }).then((result) => {
+        this.data = result.data
+        //console.log(result.data)
+        this.items = [
+          { icon: 'work', iconClass: 'grey darken-2 white--text', title: '법인명', subtitle: result.data.compNm},
+          { icon: 'person', iconClass: 'grey darken-2 white--text', title: '대표', subtitle: result.data.compOwner },
+          { icon: 'phone_iphone', iconClass: 'grey darken-2 white--text', title: '전화번호', subtitle: result.data.compTel },
+          { icon: 'business', iconClass: 'grey darken-2 white--text', title: '주소', subtitle: result.data.compAddr },
+          { icon: 'done', iconClass: 'grey darken-2 white--text', title: '등록일', subtitle: result.data.instDt }
+        ]
+      }).catch(error => {
+        console.log(error)
+      })
+    },
+    successSnackbar : function() {
+      this.viewCompany()
+
+      setTimeout(() => {
+        this.snackbar = true
+      }, 300)
+    }
   }
 }
 </script>
