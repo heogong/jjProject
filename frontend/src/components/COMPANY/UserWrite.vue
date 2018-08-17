@@ -7,13 +7,12 @@
           <v-form v-model="valid">
 
             <v-text-field
-              v-model="id"
+              v-model="userId"
               :rules="nameRules"
               :counter="10"
-              label="id"
+              label="사용자 ID"
               required
             ></v-text-field>
-
 
             <v-text-field
               v-model="name"
@@ -22,12 +21,44 @@
               label="Name"
               required
             ></v-text-field>
+
             <v-text-field
+              v-model="password1"
+              :append-icon="show1 ? 'visibility_off' : 'visibility'"
+              :rules="[rules.required, rules.min]"
+              :type="show1 ? 'text' : 'password'"
+              name="input-10-1"
+              label="패스워드 입력"
+              hint="At least 8 characters"
+              counter
+              @click:append="show1 = !show1"
+              ref="password1"
+              data-vv-delay="300"
+              :error-messages="errors.collect('password1')"
+              data-vv-name="password1"
+            ></v-text-field>
+            <v-text-field
+              v-model="password2"
+              :append-icon="show2 ? 'visibility_off' : 'visibility'"
+              :rules="[rules.required, rules.min]"
+              :type="show2 ? 'text' : 'password'"
+              name="input-10-2"
+              label="패스워드 확인"
+              hint="At least 8 characters"
+              counter
+              @click:append="show2 = !show2"
+              :error-messages="errors.collect('password2')"
+              v-validate="'required|confirmed:password1'"
+              data-vv-name="password2"
+              data-vv-delay="300"
+            ></v-text-field>
+
+            <!-- <v-text-field
               v-model="email"
               :rules="emailRules"
               label="E-mail"
               required
-            ></v-text-field>
+            ></v-text-field> -->
             <v-menu
               ref="menu"
               :close-on-content-click="false"
@@ -55,6 +86,16 @@
                 locale="euc-kr"
               ></v-date-picker>
             </v-menu>
+            <v-text-field
+              v-model="userTel"
+              :rules="phoneRules"
+              :counter="13"
+              @keydown="isNumber"
+              @change="setHippen"
+              label="전화번호"
+              required
+              prepend-icon="phone"
+            ></v-text-field>
           </v-form>
         </v-flex>
       </v-layout>
@@ -64,7 +105,6 @@
       </div>
   </v-container>
 </template>
-
 <script>
 
 export default {
@@ -73,17 +113,40 @@ export default {
       date: null,
       menu: false,
       valid: false,
+      show1: false,
+      show2: false,
       name: '',
-      //compSeq: '',
+      userId: '',
+      password1: '',
+      password2: '',
+      //email: '',
+      userTel: '',
+      rules: {
+        required: v => !!v || 'Required.',
+        min: v => v.length >= 8 || 'Min 8 characters',
+      },
       nameRules: [
         v => !!v || 'Name is required',
         v => v.length <= 10 || 'Name must be less than 10 characters'
       ],
-      email: '',
-      emailRules: [
-        v => !!v || 'E-mail is required',
-        v => /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v) || 'E-mail must be valid'
-      ]
+      // emailRules: [
+      //   v => !!v || 'E-mail is required',
+      //   v => /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v) || 'E-mail must be valid'
+      // ],
+      phoneRules : [
+        v => !!v || '전화번호는 필수 입력 입니다.',
+        v => v.length <= 13 || '13자 내외로 입력해 주세요.',
+        v => /^(01[016789]{1}|02|0[3-9]{1}[0-9]{1})-?[0-9]{3,4}-?[0-9]{4}$/.test(v) || '번호가 유효하지 않습니다.'
+      ],
+      dictionary: {
+        custom: {
+          password2: {
+            required: () => '패스워드 확인은 비워 둘 수 없습니다.',
+            confirmed: '입력하신 패스워드가 일치하지 않습니다.'
+            // custom messages
+          }
+        }
+      }
   }),
   created : function() {
     this.compSeq = this.$route.params.compSeq
@@ -96,6 +159,37 @@ export default {
   methods: {
     save (date) {
       this.$refs.menu.save(date)
+    },
+    isNumber: function(evt) {
+      evt = (evt) ? evt : window.event;
+      var charCode = (evt.which) ? evt.which : evt.keyCode;
+      if ((charCode > 31 && (charCode < 48 || charCode > 57) && (charCode < 95 || charCode > 106)) && charCode !== 46) {
+        evt.preventDefault();;
+      } else {
+        return true;
+      }
+    },
+    setHippen: function() {
+      this.userTel = this.userTel.replace(/(^02.{0}|^01.{1}|[0-9]{3})([0-9]+)([0-9]{4})/,"$1-$2-$3");
+    },
+    writeUser : function() {
+      const baseURI ='http://localhost:8080/comp/writeUser';
+      this.$http.get(`${baseURI}`,{
+        params : {
+          compSeq : this.compSeq,
+          userId : this.userId,
+          userNm : this.name,
+          userPasswd : this.password2,
+          userBirth : this.date,
+          userTel : this.userTel
+        }
+      }).then((result) => {
+        //alert("등록완료")
+        this.$router.push({ name: 'CompanyList', params: { snackbar: true } }) 
+      }).catch(error => {
+        alert(error.response.status)
+        console.log(error.response)
+      });
     }
   }
 }

@@ -11,6 +11,7 @@ import TeacherWrite from '@/components/TEACHER/Write'
 import CompanyList from '@/components/COMPANY/List'
 import CompanyInfo from '@/components/COMPANY/Info'
 import CompanyWrite from '@/components/COMPANY/Write'
+import CompanyUserWrite from '@/components/COMPANY/UserWrite'
 
 Vue.use(Router)
 
@@ -56,6 +57,11 @@ export default new Router({
       path: '/COMPANY/Write',
       name: 'CompanyWrite',
       component: CompanyWrite
+    },
+    {
+      path: '/COMPANY/UserWrite/:compSeq',
+      name: 'CompanyUserWrite',
+      component: CompanyUserWrite
     }
   ]
 })

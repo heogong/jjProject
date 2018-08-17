@@ -5,11 +5,13 @@ import App from './App'
 import router from './router'
 import axios from 'axios'
 import moment from 'moment'
+import VeeValidate from 'vee-validate'
 
 import Vuetify from 'vuetify'
 import 'vuetify/dist/vuetify.min.css' // Ensure you are using css-loader
 
 Vue.use(Vuetify)
+Vue.use(VeeValidate)
 
 Vue.config.productionTip = false
 Vue.prototype.$http = axios
