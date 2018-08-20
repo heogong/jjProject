@@ -15,7 +15,7 @@
             ></v-text-field>
 
             <v-text-field
-              v-model="name"
+              v-model="userNm"
               :rules="nameRules"
               :counter="10"
               label="Name"
@@ -100,12 +100,13 @@
         </v-flex>
       </v-layout>
       <div class="text-sm-right">
-        <v-btn slot="activator" outline dark class="mb-2">저장</v-btn>
+        <v-btn slot="activator" outline dark class="mb-2" @click="writeUser">저장</v-btn>
         <v-btn slot="activator" outline dark class="mb-2" :to="{ name : 'CompanyInfo', params:{compSeq : compSeq}}">취소</v-btn>
       </div>
   </v-container>
 </template>
 <script>
+const USER_LV = 2;
 
 export default {
   name: 'Company_User_Write',
@@ -115,7 +116,7 @@ export default {
       valid: false,
       show1: false,
       show2: false,
-      name: '',
+      userNm: '',
       userId: '',
       password1: '',
       password2: '',
@@ -173,19 +174,22 @@ export default {
       this.userTel = this.userTel.replace(/(^02.{0}|^01.{1}|[0-9]{3})([0-9]+)([0-9]{4})/,"$1-$2-$3");
     },
     writeUser : function() {
-      const baseURI ='http://localhost:8080/comp/writeUser';
+      const baseURI ='http://localhost:8080/user/writeUser';
       this.$http.get(`${baseURI}`,{
         params : {
           compSeq : this.compSeq,
           userId : this.userId,
-          userNm : this.name,
-          userPasswd : this.password2,
+          userNm : this.userNm,
+          userPasswd : this.password,
           userBirth : this.date,
-          userTel : this.userTel
+          userTel : this.userTel,
+          userLv : USER_LV
         }
       }).then((result) => {
         //alert("등록완료")
-        this.$router.push({ name: 'CompanyList', params: { snackbar: true } }) 
+        //this.$router.push({ name: 'CompanyList', params: { snackbar: true } }) 
+        console.log(result)
+        
       }).catch(error => {
         alert(error.response.status)
         console.log(error.response)
