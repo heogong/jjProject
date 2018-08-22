@@ -106,7 +106,8 @@
   </v-container>
 </template>
 <script>
-const USER_LV = 2;
+
+const COMP_ADM = 1; // 회사 관리자
 
 export default {
   name: 'Company_User_Write',
@@ -180,10 +181,10 @@ export default {
           compSeq : this.compSeq,
           userId : this.userId,
           userNm : this.userNm,
-          userPasswd : this.password,
+          userPasswd : this.password1,
           userBirth : this.date,
           userTel : this.userTel,
-          userLv : USER_LV
+          userLv : COMP_ADM
         }
       }).then((result) => {
         //alert("등록완료")
