@@ -12,6 +12,7 @@ import CompanyList from '@/components/COMPANY/List'
 import CompanyInfo from '@/components/COMPANY/Info'
 import CompanyWrite from '@/components/COMPANY/Write'
 import CompanyUserWrite from '@/components/COMPANY/UserWrite'
+import CompanyUserView from '@/components/COMPANY/UserView'
 
 Vue.use(Router)
 
@@ -62,6 +63,11 @@ export default new Router({
       path: '/COMPANY/UserWrite/:compSeq',
       name: 'CompanyUserWrite',
       component: CompanyUserWrite
-    }
+    },
+    {
+      path: '/COMPANY/UserView/:userSeq',
+      name: 'CompanyUserView',
+      component: CompanyUserView
+    },
   ]
 })

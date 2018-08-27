@@ -23,7 +23,7 @@
         <td class="text-xs-center">{{ props.item.userSt }}</td>
         <td class="text-xs-center">{{ moment(props.item.instDt).format('YYYY.MM.DD') }}</td>
         <td class="text-xs-center">
-          <router-link :to="{ name: 'TeacherInfo', params: { userId: props.item.seq }}">
+          <router-link :to="{ name: 'CompanyUserView', params: { userSeq: props.item.seq, compSeq: compSeq}}">
             <v-icon color="white">search</v-icon>
           </router-link>
         </td>
