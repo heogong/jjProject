@@ -16,7 +16,6 @@
     </v-card>
     <div class="text-sm-right">
       <v-btn v-on:click="dialog=!dialog" outline class="mb-2">수정</v-btn>
-      <v-btn to="/COMPANY" dark outline class="mb-2">취소</v-btn>
     </div>
      <CompanyEdit v-bind:parentData="[dialog, data]" v-on:send-success="successSnackbar"></CompanyEdit>
 

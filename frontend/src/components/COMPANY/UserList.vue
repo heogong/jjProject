@@ -35,7 +35,6 @@
       <v-flex xs4>
         <div class="text-sm-right">
           <v-btn slot="activator" outline dark :to="{name : 'CompanyUserWrite', params: { compSeq: compSeq }}">등록</v-btn>
-          <v-btn to="/COMPANY" dark outline class="mb-2">취소</v-btn>
         </div>
       </v-flex>
     </v-layout>

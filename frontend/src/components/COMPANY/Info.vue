@@ -2,6 +2,17 @@
   <v-container grid-list-md text-xs-center>
     <v-layout row wrap>
       <v-flex xs12>
+
+        <v-toolbar
+          color="teal darken-4"
+          height="65px"
+        >
+          <v-btn icon>
+            <v-icon>keyboard_backspace</v-icon>
+          </v-btn>
+          <v-toolbar-title>법인</v-toolbar-title>
+        </v-toolbar>
+
         <v-tabs left color="teal darken-4" slider-color="teal" v-model="tabKey">
           <v-tab :target="'tab-1'"> 
             법인 정보

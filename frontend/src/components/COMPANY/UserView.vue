@@ -3,8 +3,8 @@
     <v-layout row wrap>
       <v-flex xs12>
         <v-toolbar
-          color="pink darken-1"
-          dark
+          color="teal darken-4"
+          height="65px"
         >
           <v-btn icon :to="{ name : 'CompanyInfo', params:{compSeq : compSeq}}">
             <v-icon>keyboard_backspace</v-icon>
@@ -44,21 +44,21 @@
         <div class="text-sm-right">
           <v-btn v-on:click="dialog=!dialog" outline class="mb-2">수정</v-btn>
         </div>
-      <TeacherEdit v-bind:parentData="dialog"></TeacherEdit>
+      <CompanyUserEdit v-bind:parentData="[dialog, data]"></CompanyUserEdit>
      </v-flex>
     </v-layout>
   </v-container>
 </template>
 
 <script>
-import TeacherEdit from '@/components/TEACHER/Edit'
+import CompanyUserEdit from '@/components/COMPANY/UserEdit'
 
 export default {
   
   name: 'Company_UserView',
-  props : ['parentData'],
+  //props : ['parentData'],
   components : {
-    TeacherEdit
+    CompanyUserEdit
   },
   data () {
     return {
