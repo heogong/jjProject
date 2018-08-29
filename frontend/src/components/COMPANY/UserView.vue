@@ -44,7 +44,27 @@
         <div class="text-sm-right">
           <v-btn v-on:click="dialog=!dialog" outline class="mb-2">수정</v-btn>
         </div>
-      <CompanyUserEdit v-bind:parentData="[dialog, data]"></CompanyUserEdit>
+      <CompanyUserEdit v-bind:parentData="[dialog, data]" v-on:send-success="successSnackbar"></CompanyUserEdit>
+
+      <v-snackbar
+      v-model="snackbar"
+      :bottom="y === 'bottom'"
+      :left="x === 'left'"
+      :multi-line="mode === 'multi-line'"
+      :right="x === 'right'"
+      :timeout="timeout"
+      :top="y === 'top'"
+      :vertical="mode === 'vertical'"
+      >
+        {{text}}
+        <v-btn
+          color="pink"
+          flat
+          @click="snackbar = false"
+        >
+          Close
+        </v-btn>
+      </v-snackbar>
      </v-flex>
     </v-layout>
   </v-container>
@@ -62,6 +82,13 @@ export default {
   },
   data () {
     return {
+      snackbar: false,
+      y: 'bottom',
+      x: null,
+      mode: '',
+      timeout: 6000,
+      text: '수정이 완료 되었습니다.',
+      data : '',
       dialog : false,
       userSeq : '',
       compSeq : '',
@@ -86,18 +113,27 @@ export default {
       }).then((result) => {
         this.data = result.data
 
+        console.log(result.data.user)
+        var userInfo = result.data.user
+
         this.items = [
-          { icon: 'account_box', iconClass: 'grey lighten-1 white--text', title: '사용자 ID', subtitle: result.data.userId },
-          { icon: 'account_box', iconClass: 'grey lighten-1 white--text', title: '이름', subtitle: result.data.userNm },
-          { icon: 'cake', iconClass: 'grey lighten-1 white--text', title: '생년월일', subtitle: result.data.userBirth },
-          { icon: 'phone_iphone', iconClass: 'grey lighten-1 white--text', title: '전화번호', subtitle: result.data.userTel }
+          { icon: 'account_box', iconClass: 'grey lighten-1 white--text', title: '사용자 ID', subtitle: userInfo.userId },
+          { icon: 'account_box', iconClass: 'grey lighten-1 white--text', title: '이름', subtitle: userInfo.userNm },
+          { icon: 'cake', iconClass: 'grey lighten-1 white--text', title: '생년월일', subtitle: userInfo.userBirth },
+          { icon: 'phone_iphone', iconClass: 'grey lighten-1 white--text', title: '전화번호', subtitle: userInfo.userTel }
         ],
         this.items2 = [
-          { icon: 'phone_iphone', iconClass: 'grey lighten-1 white--text', title: '권한', subtitle: result.data.roles[0].role }
+          { icon: 'phone_iphone', iconClass: 'grey lighten-1 white--text', title: '권한', subtitle: userInfo.roles[0].role }
         ]
       }).catch(error => {
         console.log(error)
       })
+    }, successSnackbar : function() {
+      this.viewCompanyUser()
+
+      setTimeout(() => {
+        this.snackbar = true
+      }, 300)
     }
   }
 }
